@@ -1,46 +1,19 @@
 apply plugin: 'groovy'
 
 dependencies {
-    compile gradleApi()
-    compile localGroovy()
+  compile gradleApi()
+  compile localGroovy()
 }
 
 apply plugin: 'maven'
 
 repositories {
-    mavenCentral()
+  mavenCentral()
 }
 
 dependencies {
-    testCompile 'junit:junit:4.12'
+  testCompile 'junit:junit:4.12'
 }
 
-group = 'org.gradle'
-version = '1.0-SNAPSHOT'
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: uri('../repo'))
-        }
-    }
-}
-
-
-buildscript {
-    repositories {
-        maven {
-            url uri('build/libs')
-        }
-    }
-    dependencies {
-        classpath name: 'customPlugin',
-          version: '1.0-SNAPSHOT'
-    }
-}
-apply plugin: 'org.samples.greeting'
-
-task testGit(type: com.byteimagination.gradle.git.GitTask) {
-    add('.')
-}
-
+group = 'com.byteimagination.gradle'
+version = '0.1'

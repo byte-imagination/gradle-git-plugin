@@ -25,7 +25,7 @@ class GitTask extends DefaultTask {
     }
   }
 
-  def flowStopRelease(String version) {
+  def flowFinishRelease(String version) {
     project.exec {
       commandLine = ['git']
       args = ['flow', 'release', 'finish', "${version}", '-m', "Merge branch 'release/${version}'"]

@@ -15,5 +15,5 @@ dependencies {
   testCompile 'junit:junit:4.12'
 }
 
-group = 'com.byteimagination.gradle'
+group = 'com.byteimagination.gradle.git'
 version = '0.1'

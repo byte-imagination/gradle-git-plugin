@@ -54,16 +54,30 @@ class GitTask extends DefaultTask {
   }
 
   def currentBranch() {
-    ByteArrayOutputStream stdOut = new ByteArrayOutputStream()
+    ByteArrayOutputStream output = new ByteArrayOutputStream()
     project.exec {
       commandLine = ['git']
       args = ['branch']
-      standardOutput = stdOut
+      standardOutput = output
     }
-    String[] branches = stdOut.toString().trim().split('\n')
+    String[] branches = preprocessOutput(output).split('\n')
     for (String branch : branches)
       if (branch.startsWith('*'))
         return branch.split('\\* ')[1]
     throw new StopActionException("No branch found.")
+  }
+
+  def lastCommitWithMessageContaining(String content) {
+    ByteArrayOutputStream output = new ByteArrayOutputStream()
+    project.exec {
+      commandLine = ['git']
+      args = ['log', '--format=%s', '--all', "--grep=${content}", '-1']
+      standardOutput = output
+    }
+    return preprocessOutput(output)
+  }
+
+  private static def preprocessOutput(ByteArrayOutputStream output) {
+    return output.toString().trim()
   }
 }
